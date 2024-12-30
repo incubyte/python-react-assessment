@@ -17,10 +17,10 @@ class DB:
         """
         if not cls.connection:
             cls.connection = sqlite3.connect(
-                os.path.join(cls.current_dir, 'doctors.sqlite'),
+                os.path.join(cls.current_dir, "doctors.sqlite"),
                 detect_types=sqlite3.PARSE_DECLTYPES,
                 isolation_level=None,
-                check_same_thread=False
+                check_same_thread=False,
             )
 
         return cls.connection
@@ -42,7 +42,7 @@ class DB:
         """
         db = cls.get_db()
 
-        with open(os.path.join(cls.current_dir, 'schema.sql'), 'r') as f:
+        with open(os.path.join(cls.current_dir, "schema.sql"), "r") as f:
             db.executescript(f.read())
 
     @classmethod
@@ -52,7 +52,7 @@ class DB:
         """
         db = cls.get_db()
 
-        with open(os.path.join(cls.current_dir, 'seed_data.sql'), 'r') as f:
+        with open(os.path.join(cls.current_dir, "seed_data.sql"), "r") as f:
             db.executescript(f.read())
 
     @classmethod
@@ -62,7 +62,9 @@ class DB:
         """
         cursor = cls.get_db().cursor()
 
-        result = cursor.execute("SELECT name FROM sqlite_schema WHERE type='table' ORDER BY name").fetchall()
+        result = cursor.execute(
+            "SELECT name FROM sqlite_schema WHERE type='table' ORDER BY name"
+        ).fetchall()
 
         if not result:
             cls.init_db()
@@ -75,10 +77,7 @@ class DB:
         """
         cursor = cls.get_db().cursor()
 
-        result = cursor.execute(
-            query,
-            tuple(params)
-        ).fetchall()
+        result = cursor.execute(query, tuple(params)).fetchall()
 
         # sqlite returns lists of tuples, annoyingly
         # parse into more useful dictionaries

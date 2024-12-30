@@ -72,8 +72,13 @@ python server.py
 Below are a few questions which expand the scope of the service. Please pick one and describe your approach.
 
 * What are some real-world constraints to booking appointments that would add complexity to this API and how would they impact the design.
+	- Real-world constraints to booking appointments add significant complexity to the API. For example, ensuring no overlapping appointments for the same doctor or location requires implementing validation logic at both the API and database levels. Handling time zones would involve storing timestamps in UTC and converting them dynamically based on user preferences. Additionally, managing cancellations and no-shows requires creating APIs for tracking cancellations and enforcing penalties or rescheduling options. Finally, respecting doctor availability and working hours involves extending the availability model to support recurring schedules and holidays. These constraints require careful API design, robust validation, and detailed error handling to ensure a seamless user experience.
+
 * How would our design change if this API was opened up to external users?
+	- If this API were opened up to external users, the design would need stronger focus on security, scalability, and usability. This includes implementing robust authentication (e.g., OAuth2), ensuring data privacy, and rate-limiting to prevent misuse. Clear API documentation and versioning would be crucial for a seamless developer experience. Additionally, monitoring, logging, and tiered access plans could support external users while maintaining system reliability.
+	
 * What concerns are there with multi-tenant data management and how could we modify the design to increase data security?
+	- In multi-tenant data management, key concerns include data isolation, performance scalability, and security compliance. To increase data security, we can implement row-level access control or use separate schemas/databases for each tenant to ensure strict data isolation. Encrypting sensitive data at rest and in transit protects against breaches, while adding audit logs tracks data access. Additionally, using tenant-specific encryption keys and role-based access control (RBAC) further enhances security and ensures only authorized users access their respective data.
 
 #### Suggestions ####
 
@@ -117,3 +122,6 @@ With that, let's jump right in!
 ### Who do I talk to? ###
 * If you have any questions prior to your interview, please reach out to your designated Incubyte recruiting contact and he/she will get back to you as soon as possible.
 * If you have any feedback on the interview question after you're done, let us know, we're always looking into improving the interview process. Thanks!
+
+
+# Code Formatted by isort and black
